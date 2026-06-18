@@ -4,52 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Votre Espace de Français</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
     <style>
         body {
-            background-color: #f1f5f9;
+            /* 1. Fond chaud/terracotta avec micro-texture géométrique discrète en SVG */
+            background-color: #dfd4c6; 
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath d='M0 0h1v1H0zm4 4h1v1H4z' fill='%23d4c7b7' fill-opacity='0.6'/%3E%3C/svg%3E");
+            
             margin: 0;
-            padding: 10px;
+            padding: 0 15px 15px 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-family: sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
+
         .header {
             text-align: center;
-            color: #1e293b;
-            margin: 20px 0 10px 0;
+            /* Bleu-noir très profond pour le contraste élégant */
+            color: #1a2433; 
+            margin: 15px 0 10px 0;
         }
+
+        /* 2. Style du titre "COURS de FRANÇAIS" */
+        .header h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+
         .selector-box {
-            margin-bottom: 25px;
-            font-size: 16px;
+            margin-bottom: 35px;
         }
+
+        /* 3. Style moderne du menu déroulant */
         select {
-            padding: 8px 12px;
-            font-size: 16px;
-            border-radius: 6px;
-            border: 1px solid #cbd5e1;
-            background-color: #fff;
-            color: #1e293b;
+            padding: 10px 36px 10px 16px;
+            font-size: 15px;
+            font-weight: 500;
+            font-family: inherit;
+            color: #2c3e50;
+            border-radius: 24px; /* Forme très arrondie/capsule */
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            background-color: #fbf9f6; /* Blanc cassé papier */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            cursor: pointer;
+            
+            /* Personnalisation de la flèche du menu */
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            background-size: 14px;
+            
+            transition: all 0.2s ease;
         }
+
+        select:hover {
+            background-color: #ffffff;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+            transform: translateY(-1px);
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #9e8e7c;
+        }
+
         #slides-container {
             width: 100%;
-            max-width: 600px;
+            max-width: 680px; /* Légèrement élargi pour valoriser les détails textuels */
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
+        /* 4. L'écrin protecteur pour les slides NotebookLM */
         .slide-card {
             width: 100%;
-            margin-bottom: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 28px;
+            background: #ffffff; /* Le "passe-partout" blanc pour isoler les couleurs */
+            padding: 10px; /* Marge interne style galerie d'art */
+            box-sizing: border-box;
+            border-radius: 14px; /* Arrondi contrôlé */
+            
+            /* Ombre portée douce et diffuse pour donner du relief */
+            box-shadow: 0 15px 35px rgba(44, 38, 32, 0.12), 
+                        0 5px 15px rgba(0, 0, 0, 0.04);
+            
             overflow: hidden;
+            transition: transform 0.3s ease;
         }
+
+        /* Arrondi appliqué directement à l'image interne */
         .slide-card img {
             width: 100%;
             height: auto;
             display: block;
+            border-radius: 8px; 
         }
     </style>
 </head>
@@ -60,7 +121,6 @@
     </div>
 
     <div class="selector-box">
-        
         <select id="lecon-select" onchange="chargerLecon(this.value)"></select>
     </div>
 
@@ -69,11 +129,11 @@
     <script>
         // 🛠️ CONFIGURATION : Ajoutez la nouvelle date ici à chaque cours !
         const lecons = [
-			["Verbe_Préférer", "Vendredi 22 mai"],
+            ["Verbe_Préférer", "Vendredi 22 mai"],
             ["Marqueurs_Temporels", "Vendredi 8 mai"]
         ];
 
-        const maxSlides = 15; // Sécurité si vous faites plus de 10 slides un jour
+        const maxSlides = 15; 
 
         // Initialisation du menu
         const selectElement = document.getElementById('lecon-select');
@@ -94,12 +154,10 @@
                 card.className = 'slide-card';
 
                 const img = document.createElement('img');
-                // 📂 Adapté pour lire directement "Diapositive1.PNG"
                 img.src = `slides/${dateDossier}/Diapositive${i}.PNG`;
                 img.alt = `Diapositive ${i}`;
                 img.loading = 'lazy';
 
-                // Si la diapositive n'existe pas (ex: le cours n'a que 10 slides), on la masque proprement
                 img.onerror = function() {
                     this.parentElement.style.display = 'none';
                 };
