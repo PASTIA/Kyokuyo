@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votre Espace de Français</title>
+    <style>
+        body {
+            background-color: #f1f5f9;
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: sans-serif;
+        }
+        .header {
+            text-align: center;
+            color: #1e293b;
+            margin: 20px 0 10px 0;
+        }
+        .selector-box {
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+        select {
+            padding: 8px 12px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            background-color: #fff;
+            color: #1e293b;
+        }
+        #slides-container {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .slide-card {
+            width: 100%;
+            margin-bottom: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        .slide-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>COURS de FRANÇAIS</h2>
+    </div>
+
+    <div class="selector-box">
+        
+        <select id="lecon-select" onchange="chargerLecon(this.value)"></select>
+    </div>
+
+    <div id="slides-container"></div>
+
+    <script>
+        // 🛠️ CONFIGURATION : Ajoutez la nouvelle date ici à chaque cours !
+        const lecons = [
+			["Verbe_Préférer", "Vendredi 22 mai"],
+            ["Marqueurs_Temporels", "Vendredi 8 mai"]
+        ];
+
+        const maxSlides = 15; // Sécurité si vous faites plus de 10 slides un jour
+
+        // Initialisation du menu
+        const selectElement = document.getElementById('lecon-select');
+        lecons.forEach(lecon => {
+            const option = document.createElement('option');
+            option.value = lecon[0];
+            option.textContent = lecon[1];
+            selectElement.appendChild(option);
+        });
+
+        // Chargement des images
+        function chargerLecon(dateDossier) {
+            const container = document.getElementById('slides-container');
+            container.innerHTML = ""; 
+
+            for (let i = 1; i <= maxSlides; i++) {
+                const card = document.createElement('div');
+                card.className = 'slide-card';
+
+                const img = document.createElement('img');
+                // 📂 Adapté pour lire directement "Diapositive1.PNG"
+                img.src = `slides/${dateDossier}/Diapositive${i}.PNG`;
+                img.alt = `Diapositive ${i}`;
+                img.loading = 'lazy';
+
+                // Si la diapositive n'existe pas (ex: le cours n'a que 10 slides), on la masque proprement
+                img.onerror = function() {
+                    this.parentElement.style.display = 'none';
+                };
+
+                card.appendChild(img);
+                container.appendChild(card);
+            }
+        }
+
+        // Chargement initial
+        chargerLecon(lecons[0][0]);
+    </script>
+
+</body>
+</html>
