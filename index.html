@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Votre Espace de Français</title>
+    <title>Cours de Français</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Plus+Jakarta+Sans:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
         body {
@@ -26,22 +26,42 @@
 
         .header {
             text-align: center;
+            text-align: center;
             /* Bleu-noir très profond pour le contraste élégant */
-            color: #1a2433; 
-            margin: 15px 0 10px 0;
+            color: #1d3557; 
+            margin: 4px 0 10px 0;
         }
 
         /* 2. Style du titre "COURS de FRANÇAIS" */
         .header h2 {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: 2.2rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            margin: 0;
-        }
+		font-family: 'Caveat', cursive; 
+		font-size: 3.9rem; 
+		font-weight: 600;  
+		color: #1d3557;    
+		margin: 0;
+		padding: 0;
+		text-transform: none;
+		letter-spacing: -0.5px;
+    
+		/* 🛠️ SOLUTION : On resserre l'espace entre les lignes quand le texte saute une ligne */
+		line-height: 1.1; 
+}
+
+	/* 📱 OPTIMISATION SMARTPHONE : Si l'écran fait moins de 480px de large */
+	@media (max-width: 480px) {
+    .header h2 {
+        font-size: 3rem; /* On réduit un tout petit peu la taille sur mobile pour que ce soit mieux proportionné */
+        line-height: 1.05; /* Interlignage ultra-ajusté pour le smartphone */
+    }
+	
+    .selector-box {
+        margin-top: 20px; /* On réduit un peu l'espace sous le titre sur mobile */
+    }
+}
 
         .selector-box {
-            margin-bottom: 35px;
+            margin-top: 20px;
+			margin-bottom: 12px;
         }
 
         /* 3. Style moderne du menu déroulant */
@@ -116,8 +136,8 @@
 </head>
 <body>
 
-    <div class="header">
-        <h2>COURS de FRANÇAIS</h2>
+   <div class="header">
+        <h2>~&nbsp;Cours de français&nbsp;~</h2>
     </div>
 
     <div class="selector-box">
@@ -129,8 +149,8 @@
     <script>
         // 🛠️ CONFIGURATION : Ajoutez la nouvelle date ici à chaque cours !
         const lecons = [
-            ["Verbe_Préférer", "Vendredi 22 mai"],
-            ["Marqueurs_Temporels", "Vendredi 8 mai"]
+            ["Verbe_Préférer", "vendredi 22 mai"],
+            ["Marqueurs_Temporels", "vendredi 8 mai"]
         ];
 
         const maxSlides = 15; 
